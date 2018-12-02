@@ -2,6 +2,7 @@
 
 void setup() {
   pinMode(9, OUTPUT);
+  pinMode(6, INPUT);
 }
 
 void loop() {
@@ -18,5 +19,7 @@ void loop() {
         out = 0;
     }
 
-    analogWrite(9, out);
+    if (digitalRead(6) == HIGH) {
+        analogWrite(9, out);
+    }
 }
