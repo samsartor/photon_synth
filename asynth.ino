@@ -8,7 +8,6 @@ void setup() {
         pinMode(BUTTONS[i], INPUT_PULLUP);
     }
     pinMode(AUDIO_OUTPUT, OUTPUT);
-    pinMode(LED, OUTPUT);
 }
 
 static int state = -1;
