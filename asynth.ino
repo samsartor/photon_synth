@@ -6,20 +6,22 @@ void setup() {
 }
 
 void loop() {
+    float freq = 523.25 + analogRead(1) * 0.511485826;
+
     // 2272 is 1/440th of a second, in microseconds
-    long period = 2272;
+    long period = 1e6 / (freq * 0.5);
 
     // cycle is current time in peroid
     long cycle = micros() % period;
     int out;
     if (cycle > (period / 2)) {
         // over halfway
-        out = 255;
+        out = HIGH;
     } else {
-        out = 0;
+        out = LOW;
     }
 
     if (digitalRead(6) == HIGH) {
-        analogWrite(9, out);
+        digitalWrite(9, out);
     }
 }
