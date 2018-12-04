@@ -5,15 +5,22 @@ const int LED = D7;
 void setup() {
   pinMode(D0), INPUT_PULLUP);
   pinMode(LED, OUTPUT);
+  pinMode(A4, OUTPUT);
+  pinMode(DAC1, OUTPUT);
+  analogWrite(A4, 128, 1000);
 }
 
 void loop() {
-    int period = 1e6 / 440.0;
-    float cycle = (micros() % period) / (float) period;
-    float theta = cycle * TWO_PI;
-    int out = sin(theta) * 2048 + 2047;
-
-    if (digitalRead(D0)) == LOW) {
-        analogWrite(DAC1, out);
-    }
+//    int period = 1e6 / NOTES[0];
+//    long cycle = micros() % period;
+//    int out;
+//    if (cycle > (period / 2)) {
+//        out = 4095;
+//    } else {
+//        out = 0;
+//    }
+//
+//    if (digitalRead(BUTTONS[0]) == LOW) {
+//        analogWrite(A4, 128, 1000);
+//    }
 }
