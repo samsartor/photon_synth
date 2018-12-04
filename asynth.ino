@@ -1,27 +1,25 @@
 #include "Arduino.h"
 
+const float NOTES[4] = [261.63, 293.66, 329.63, 392.00];
+const int BUTTONS[4] = [D0, D1, D2, D3];
+const int LED = D7;
+
 void setup() {
-  pinMode(9, OUTPUT);
-  pinMode(6, INPUT);
+  pinMode(BUTTONS[0], INPUT_PULLUP);
+  pinMode(LED, OUTPUT);
 }
 
 void loop() {
-    float freq = 523.25 + analogRead(1) * 0.511485826;
-
-    // 2272 is 1/440th of a second, in microseconds
-    long period = 1e6 / (freq * 0.5);
-
-    // cycle is current time in peroid
+    int period = 1e6 / NOTES[0];
     long cycle = micros() % period;
     int out;
     if (cycle > (period / 2)) {
-        // over halfway
-        out = HIGH;
+        out = 4095;
     } else {
-        out = LOW;
+        out = 0;
     }
 
-    if (digitalRead(6) == HIGH) {
-        digitalWrite(9, out);
+    if (digitalRead(BUTTONS[0]) == LOW) {
+        analogWrite(DAC1, out);
     }
 }
