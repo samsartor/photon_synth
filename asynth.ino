@@ -1,25 +1,19 @@
-#include "Arduino.h"
-
-const float NOTES[4] = [261.63, 293.66, 329.63, 392.00];
-const int BUTTONS[4] = [D0, D1, D2, D3];
+const float NOTES[4] = {261.63, 293.66, 329.63, 392.00};
+const int BUTTONS[4] = {D0, D1, D2, D3};
 const int LED = D7;
 
 void setup() {
-  pinMode(BUTTONS[0], INPUT_PULLUP);
+  pinMode(D0), INPUT_PULLUP);
   pinMode(LED, OUTPUT);
 }
 
 void loop() {
-    int period = 1e6 / NOTES[0];
-    long cycle = micros() % period;
-    int out;
-    if (cycle > (period / 2)) {
-        out = 4095;
-    } else {
-        out = 0;
-    }
+    int period = 1e6 / 440.0;
+    float cycle = (micros() % period) / (float) period;
+    float theta = cycle * TWO_PI;
+    int out = sin(theta) * 2048 + 2047;
 
-    if (digitalRead(BUTTONS[0]) == LOW) {
+    if (digitalRead(D0)) == LOW) {
         analogWrite(DAC1, out);
     }
 }
